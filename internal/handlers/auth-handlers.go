@@ -64,7 +64,7 @@ func AuthCallbackHandler(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("jwt", token, 3600*24*30, "/", os.Getenv("COOKIE_HOST"), false, true)
+	c.SetCookie("jwt", token, 3600*24*30, "/", os.Getenv("COOKIE_HOST"), true, true)
 
 	fmt.Printf("%+v\n", user)
 	c.Redirect(http.StatusTemporaryRedirect, os.Getenv("CLIENT_HOST"))
