@@ -78,3 +78,7 @@ func LogoutHandler(c *gin.Context) {
 func AuthHandler(c *gin.Context) {
 	gothic.BeginAuthHandler(c.Writer, c.Request)
 }
+
+func IndexHandler(c *gin.Context) {
+	c.JSON(200, gin.H{"message": "Success"})
+}

@@ -9,4 +9,5 @@ func RegisterAuthRoutes(r *gin.RouterGroup) {
 	r.GET("/auth/google/callback", handlers.AuthCallbackHandler)
 	r.GET("/auth", handlers.AuthHandler)
 	r.GET("/auth/logout", handlers.LogoutHandler)
+	r.GET("/", handlers.IndexHandler)
 }
