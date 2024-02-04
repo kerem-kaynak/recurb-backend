@@ -1,13 +1,24 @@
 package config
 
 import (
+	"os"
+
+	"fmt"
+
 	"github.com/kerem-kaynak/recurb/internal/models"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func GetDB() (*gorm.DB, error) {
-	db, err := gorm.Open(sqlite.Open("sample.db"), &gorm.Config{})
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbHost := os.Getenv("DB_HOST")
+	databaseName := os.Getenv("DB_NAME")
+
+	connString := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, user, databaseName, password)
+
+	db, err := gorm.Open(postgres.Open(connString), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}
