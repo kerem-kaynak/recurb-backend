@@ -73,6 +73,7 @@ func AuthCallbackHandler(c *gin.Context) {
 func LogoutHandler(c *gin.Context) {
 	gothic.Logout(c.Writer, c.Request)
 	c.SetCookie("jwt", "", -1, "/", os.Getenv("COOKIE_HOST"), false, true)
+	c.Writer.Header().Set("SameSite", "None")
 	c.Writer.Header().Set("Location", os.Getenv("CLIENT_LOGIN_REDIRECT"))
 	c.Writer.WriteHeader(http.StatusTemporaryRedirect)
 }
