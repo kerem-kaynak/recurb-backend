@@ -19,9 +19,11 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		dotenv_err := godotenv.Load()
-		if dotenv_err != nil {
-			log.Fatal("Error loading .env file")
+		if os.Getenv("ENV") != "production" {
+			dotenv_err := godotenv.Load()
+			if dotenv_err != nil {
+				log.Fatal("Error loading .env file")
+			}
 		}
 
 		token, err := jwt.ParseWithClaims(cookie, &jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {

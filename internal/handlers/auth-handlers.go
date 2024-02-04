@@ -50,9 +50,11 @@ func AuthCallbackHandler(c *gin.Context) {
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24 * 30)),
 	})
 
-	dotenv_err := godotenv.Load()
-	if dotenv_err != nil {
-		log.Fatal("Error loading .env file")
+	if os.Getenv("ENV") != "production" {
+		dotenv_err := godotenv.Load()
+		if dotenv_err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
 	token, err := claims.SignedString([]byte(os.Getenv("JWT_SECRET_KEY")))

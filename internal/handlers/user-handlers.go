@@ -20,9 +20,11 @@ func GetUserHandler(c *gin.Context) {
 		return
 	}
 
-	dotenv_err := godotenv.Load()
-	if dotenv_err != nil {
-		log.Fatal("Error loading .env file")
+	if os.Getenv("ENV") != "production" {
+		dotenv_err := godotenv.Load()
+		if dotenv_err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
 	tokenString := cookie.Value
