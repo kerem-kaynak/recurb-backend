@@ -1,9 +1,8 @@
 package config
 
 import (
-	"os"
-
 	"fmt"
+	"os"
 
 	"github.com/kerem-kaynak/recurb/internal/models"
 	"gorm.io/driver/postgres"
@@ -18,8 +17,11 @@ func GetDB() (*gorm.DB, error) {
 
 	connString := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, user, databaseName, password)
 
-	db, err := gorm.Open(postgres.Open(connString), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(
+		connString,
+	), &gorm.Config{})
 	if err != nil {
+		fmt.Errorf("Error connecting to database: %v", err)
 		return nil, err
 	}
 	return db, nil
