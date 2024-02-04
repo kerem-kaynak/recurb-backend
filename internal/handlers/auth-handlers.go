@@ -65,6 +65,7 @@ func AuthCallbackHandler(c *gin.Context) {
 	}
 
 	c.SetCookie("jwt", token, 3600*24*30, "/", os.Getenv("COOKIE_HOST"), true, true)
+	c.Writer.Header().Set("SameSite", "None")
 
 	fmt.Printf("%+v\n", user)
 	c.Redirect(http.StatusTemporaryRedirect, os.Getenv("CLIENT_HOST"))
@@ -73,7 +74,6 @@ func AuthCallbackHandler(c *gin.Context) {
 func LogoutHandler(c *gin.Context) {
 	gothic.Logout(c.Writer, c.Request)
 	c.SetCookie("jwt", "", -1, "/", os.Getenv("COOKIE_HOST"), false, true)
-	c.Writer.Header().Set("SameSite", "None")
 	c.Writer.Header().Set("Location", os.Getenv("CLIENT_LOGIN_REDIRECT"))
 	c.Writer.WriteHeader(http.StatusTemporaryRedirect)
 }
