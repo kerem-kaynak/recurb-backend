@@ -12,7 +12,7 @@ func NewRouter() *gin.Engine {
 	router := gin.Default()
 
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://127.0.0.1:5173", "http://localhost:5173", "http://localhost:8080", os.Getenv("CLIENT_HOST"), os.Getenv("SERVER_HOST"), "https://substopr.web.app"}, // Add other origins as needed
+		AllowOrigins:     []string{"http://127.0.0.1:5173", "http://localhost:5173", "http://localhost:8080", os.Getenv("CLIENT_HOST"), os.Getenv("SERVER_HOST"), "https://substopr.web.app", "https://recurb.app"}, // Add other origins as needed
 		AllowCredentials: true,
 		AllowHeaders:     []string{"Origin", "Authorization", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length"},
